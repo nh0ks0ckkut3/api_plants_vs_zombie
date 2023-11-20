@@ -15,7 +15,7 @@ const register = async (data) =>{
         await user.save();
     } catch (error) {
         console.log('error', error);
-        throw new Error('Xảy ra lỗi khi đăng ký');
+        throw new Error(error);
     }
 }
 
