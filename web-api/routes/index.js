@@ -1,14 +1,15 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const upload = require('../components/helper/Upload')
+const upload = require('../components/helper/Upload');
 
-// upload file 
+// upload file
 // middleware upload file
-// http://localhost:1996/upload-file
-//middeware: xử lý trung tâm
-router.post('/upload-file', [upload.single('image')] , async(req, res, next)=>{
-    const path = 'http://192.168.1.3:1996/images/'+ req.file.filename;
-    return res.json({path: path});
+// middleware: xử lý trung gian
+// http://localhost:8686/upload-file
+router.post('/upload-file', [upload.single('image')], async (req, res, next) =>{
+  // const path = req.file.path.replace('public', '');
+  const path = 'http://192.168.180.144:8686/images/' + req.file.filename;
+  return res.json({path: path});
 });
 
 

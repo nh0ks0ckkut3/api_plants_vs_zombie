@@ -1,16 +1,19 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require('mongoose')
+const {Schema} = mongoose;
 
-const schema = new Schema({
-    name: {
-        type: String, // kiểu dữ liệu
-        required: true, // bắt buộc phải có
-        unique: true, // duy nhất
+const categoriSchema = new Schema({
+    name:{
+        type: String,//kiểu dữ liệu
+        required:true,//bắt buộc phải có
+        unique:true,//duy nhất
+        // minLength:3,//độ dài tối thiểu
+        // maxLength:50//độ dài tối đađa
     },
-    description: {
+    description:{
         type: String,
-        required: true,
+        required:true,
     },
-});
 
-module.exports = mongoose.model('Category', schema) || mongoose.models.Category;
+})
+module.exports =  mongoose.model('Category', categoriSchema) || mongoose.models.Category;
+// Category là 1 collection 

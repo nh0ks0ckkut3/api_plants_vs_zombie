@@ -1,71 +1,76 @@
 var express = require('express');
 var router = express.Router();
-const CategoryController = require('../components/categories/controller');
-
-// lấy danh sách danh mục
-// http://localhost:1996/categories
-// method : GET
-router.get('/', async (req, res, next) => {
+const controllerModel = require('../components/categories/controller')
+// http://localhost:3000/categories
+// 1. lấy danh sách categories
+// method: Get
+router.get('/', async (req, res, net) =>{
     try {
-        const categories = await CategoryController.getAllCategories();
+        const categories = await controllerModel.getAllCategories();
         return res.status(200).json(categories);
-    } catch (error) {
-        console.log("error: ", error)
-        return res.status(500).json({ message: error.message });
-    }
-});
-// lấy 1 categories
-// http://localhost:1996/categories/1
-// method : GET
-router.get('/:id', async (req, res, next) => {
-    try {
-        const { id } = req.params
-        const categories = await CategoryController.getCategoryById(id);
-        return res.status(200).json(categories);
-    } catch (error) {
-        console.log("error: ", error)
-        return res.status(500).json({ message: error.message });
-    }
-});
-// thêm mới 1 categories
-// http://localhost:1996/categories/
-// method : POST
-router.post('/', async (req, res, next) => {
-    try {
-        const { body } = req;
-        const categories = await CategoryController.createCategory(body);
-        return res.status(200).json({ message: 'Thêm mới thành công' });
-    } catch (error) {
-        console.log("error: ", error)
-        return res.status(500).json({ message: error.message });
-    }
-});
-// update 1 categories
-// http://localhost:1996/categories/1
-// method : PUT
-router.put('/:id', async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const { body } = req;
-        const message = await CategoryController.updateCategory(id, body);
-        return res.status(200).json({ message });
     } catch (error) {
         console.log("error: ", error);
-        return res.status(500).json({ message: 'Có lỗi xảy ra khi cập nhật category' });
+        return res.status(500).json({message: error.message});
     }
 });
-// delete 1 categories
-// http://localhost:1996/categories/1
-//method : DELETE
-router.delete('/:id', async (req, res, next) => {
+
+// http://localhost:3000/categories/1
+// 2. lấy chi tiết danh mục
+// method: Get
+router.get('/:id', async (req, res, net) => {
     try {
-        const { id } = req.params;
-        await CategoryController.deleteCategory(id);
-        return res.status(200).json({ message: 'xóa thành công' });
+        const {id} = req.params;
+        const categories = await controllerModel.getCategoryById(id);
+        return res.status(200).json(categories);
     } catch (error) {
-        console.log("error: ", error)
-        return res.status(500).json({ messeage: error.message });
+        console.log("error: ", error);
+        return res.status(500).json({message: error.message})
+    }
+});
+
+// http://localhost:3000/categories
+// 3. Thêm mới 1 danh mục
+// method: post
+router.post('/', async (req, res, net) => {
+    try {
+        const {body} = req;
+        await controllerModel.createCategory(body);
+        return res.status(200).json({message: 'thêm mới thành công'});
+    } catch (error) {
+        console.log("error: ", error);
+        return res.status(500).json({message: error.message})
+    }
+});
+
+
+// http://localhost:3000/categories
+// 4. cập nhập 1 categories
+// method: put
+router.put('/:id', async (req, res, net) =>{
+    try {
+        const {id} = req.params;
+        const {body} = req;
+        await controllerModel.updateCategory(id, body);
+        return res.status(200).json({message: 'cập nhập thành công'})
+    } catch (error) {
+        console.log("error: ", error);
+        return res.status(500).json({message: error.message})
     }
 })
+
+// http://localhost:3000/categories
+// 5. xóa 1 categories
+// method: detele
+router.delete('/:id', async (req, res, net) =>{
+    try {
+        const {id} = req.params;
+        await controllerModel.deteleCategory(id);
+        return res.status(200).json({message: 'xóa thành công'})
+    } catch (error) {
+        console.log("error: ", error);
+        return res.status(500).json({message: error.message})
+    }
+})
+
 
 module.exports = router;
