@@ -6,7 +6,7 @@ var logger = require('morgan');
 const cors = require('cors');
 
 
-var mongoose = require('mongoose');
+var mongoose = require('./mongoconnection');
 
 
 mongoose.connect('mongodb+srv://0osuper:Huyenth0a!@plantsvszombie.tjmo9fh.mongodb.net/test', 
