@@ -4,20 +4,41 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-
+const { MongoClient } = require('mongodb');
 
 var mongoose = require('mongoose');
 
+const uri = "mongodb+srv://0osuper:Huyenth0a!@plantsvszombie.tjmo9fh.mongodb.net/test?retryWrites=true&w=majority"
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect('mongodb+srv://0osuper:Huyenth0a!@plantsvszombie.tjmo9fh.mongodb.net/', 
-  { useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => console.log('Connected successfully'))
-  .catch(err => console.log(err));
+// Function to connect to the database
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB Atlas');
+  } catch (err) {
+    console.error('Error connecting to MongoDB Atlas:', err)
+  }
+  finally {
+    // Ensure that the client will close when you finish using it
+    // You might want to call this in your application's shutdown logic
+    // e.g., when your Node.js process is terminating
+    // await client.close();
+  }
+}
 
-  //chú ý thứ tự import
-  require('./components/categories/model');
-  require('./components/products/model');
-  require('./components/users/model');
+// Call the connectToDatabase function to establish a connection
+connectToDatabase();
+
+// mongoose.connect('mongodb://localhost:27017/demoMD18201',
+//   { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('Connected successfully'))
+//   .catch(err => console.log(err));
+
+//chú ý thứ tự import
+require('./components/categories/model');
+require('./components/products/model');
+require('./components/users/model');
 
 
 
@@ -48,18 +69,18 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // http://localhost:3000/products
-app.use('/products', productRouter); 
+app.use('/products', productRouter);
 
 // http://localhost:3000/categories
 app.use('/categories', categoriesRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -78,11 +99,11 @@ module.exports = app;
 
 
 // req : request (yêu cầu)
-        // + body: dữ liệu gửi lên
-        // + params: dữ liệu trên url
-        //  + query: dữ liệu trên url
+// + body: dữ liệu gửi lên
+// + params: dữ liệu trên url
+//  + query: dữ liệu trên url
 // res : response (phản hồi)
-        // + json: trả về dữ liệu dạng json
-        // + send: trả về dữ liệu dạng text
-        // + render: trả về dữ liệu dạng html
+// + json: trả về dữ liệu dạng json
+// + send: trả về dữ liệu dạng text
+// + render: trả về dữ liệu dạng html
 // next: chuyển tiếp sang middleware tiếp theo
