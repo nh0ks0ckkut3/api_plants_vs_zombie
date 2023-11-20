@@ -15,7 +15,7 @@ const getAllCategories = async () =>{
         return categories;
     } catch (error) {
         console.log('getAllCategories: ', error);
-        throw new Error('Có lỗi xảy ra khi lấy danh sách categories')
+        throw new Error(error);
     }
 }
 
