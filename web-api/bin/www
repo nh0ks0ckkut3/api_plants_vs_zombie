@@ -57,6 +57,7 @@ function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
+  // thay dinh ne
 
   var bind = typeof port === 'string'
     ? 'Pipe ' + port

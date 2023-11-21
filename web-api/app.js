@@ -8,7 +8,8 @@ const cors = require('cors');
 
 var mongoose = require('mongoose');
 
-const uri = "mongodb+srv://0osuper:5nGxaIQysqclLd9K@plantsvszombie.tjmo9fh.mongodb.net/?retryWrites=true&w=majority"
+const uri = "mongodb+srv://0osuper:fOhL8p11Ng0x8xPx@plantsvszombie.tjmo9fh.mongodb.net/?retryWrites=true&w=majority"
+
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // // Function to connect to the database
