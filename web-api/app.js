@@ -4,31 +4,40 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
+// const { MongoClient } = require('mongodb');
 
 var mongoose = require('mongoose');
 
-const uri = "mongodb+srv://0osuper:Huyenth0a!@plantsvszombie.tjmo9fh.mongodb.net/test?retryWrites=true&w=majority"
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const uri = "mongodb+srv://0osuper:5nGxaIQysqclLd9K@plantsvszombie.tjmo9fh.mongodb.net/?retryWrites=true&w=majority"
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Function to connect to the database
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    console.log('Connected to MongoDB Atlas');
-  } catch (err) {
-    console.error('Error connecting to MongoDB Atlas:', err)
-  }
-  finally {
-    // Ensure that the client will close when you finish using it
-    // You might want to call this in your application's shutdown logic
-    // e.g., when your Node.js process is terminating
-    // await client.close();
-  }
-}
+// // Function to connect to the database
+// async function connectToDatabase() {
+//   try {
+//     await client.connect();
+//     console.log('Connected to MongoDB Atlas');
+//   } catch (err) {
+//     console.error('Error connecting to MongoDB Atlas:', err)
+//   }
+//   finally {
+//     // Ensure that the client will close when you finish using it
+//     // You might want to call this in your application's shutdown logic
+//     // e.g., when your Node.js process is terminating
+//     // await client.close();
+//   }
+// }
 
-// Call the connectToDatabase function to establish a connection
-connectToDatabase();
+// // Call the connectToDatabase function to establish a connection
+// connectToDatabase();
+const connectionParams = {
+  useNewUrlParser : true,
+  useUnifiedTopology: true
+};
+mongoose.connect(uri, connectionParams).then(() => {
+  console.info("Connected to the DB");
+}).catch((e) => {
+  console.log("Error:", e);
+});
 
 // mongoose.connect('mongodb://localhost:27017/demoMD18201',
 //   { useNewUrlParser: true, useUnifiedTopology: true })
