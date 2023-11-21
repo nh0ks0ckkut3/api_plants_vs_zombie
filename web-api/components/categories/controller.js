@@ -29,7 +29,7 @@ const getCategoryById = async (id) =>{
         return categories;
     } catch (error) {
         console.log('getCategoryById: ', error);
-        throw new Error('Có lỗi xảy ra khi lấy chi tiết danh mục')
+        throw new Error(error)
     }
     
 }
